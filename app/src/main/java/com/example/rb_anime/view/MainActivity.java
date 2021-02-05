@@ -1,8 +1,10 @@
-package com.example.rb_anime;
+package com.example.rb_anime.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.rb_anime.R;
 
 public class MainActivity extends AppCompatActivity {
 
