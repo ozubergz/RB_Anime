@@ -1,37 +1,48 @@
 package com.example.rb_anime.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.rb_anime.R;
-import com.example.rb_anime.viewmodel.MainViewModel;
+import com.example.rb_anime.databinding.ActivityMainBinding;
+import com.example.rb_anime.util.Constants;
+import com.example.rb_anime.viewmodel.AnimeListViewModel;
 import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MainViewModel viewModel;
+    private ActivityMainBinding binding;
+    private AnimeListViewModel viewModel;
     private MaterialButton btnClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        initViews();
+    }
 
-        btnClick = findViewById(R.id.btn_fetch);
-
-        btnClick.setOnClickListener(new View.OnClickListener() {
+    private void initViews() {
+        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.setAnimeTitle("cowboybebop");
-                viewModel.fetchAnimeList("cowboybebop");
+                startNextActivity();
             }
         });
-
-
     }
+
+    private void startNextActivity() {
+        String animeTitle = binding.etSearchBar.getText().toString().trim();
+
+        if(!animeTitle.isEmpty()) {
+            Intent intent = new Intent(this, AnimeListActivity.class);
+            intent.putExtra(Constants.ANIME_LIST_ACTIVITY_PARAM_STRING, animeTitle);
+            startActivity(intent);
+        }
+    }
+
 }

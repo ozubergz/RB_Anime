@@ -1,9 +1,13 @@
 package com.example.rb_anime.model;
 
-public class Results {
+import com.squareup.moshi.Json;
 
+public class AnimeModel {
+
+    @Json(name = "mal_id")
      private int malId;
      private String url;
+     @Json(name = "image_url")
      private String imageUrl;
      private String title;
      private boolean airing;
@@ -11,12 +15,14 @@ public class Results {
      private String type;
      private int episodes;
      private double score;
+     @Json(name = "start_date")
      private String startDate;
+     @Json(name = "end_date")
      private String endDate;
      private int members;
      private String rated;
 
-    public Results(int malId, String url, String imageUrl, String title, boolean airing, String synopsis, String type, int episodes, double score, String startDate, String endDate, int members, String rated) {
+    public AnimeModel(int malId, String url, String imageUrl, String title, boolean airing, String synopsis, String type, int episodes, double score, String startDate, String endDate, int members, String rated) {
         this.malId = malId;
         this.url = url;
         this.imageUrl = imageUrl;
@@ -135,4 +141,5 @@ public class Results {
     public void setRated(String rated) {
         this.rated = rated;
     }
+
 }

@@ -1,8 +1,6 @@
 package com.example.rb_anime.repo;
 
-import com.example.rb_anime.model.AnimeResponse;
-
-import java.util.List;
+import com.example.rb_anime.model.AnimeSearchResponse;
 
 import retrofit2.Call;
 
@@ -14,8 +12,8 @@ public class AnimeRepository {
 
     }
 
-    public Call<AnimeResponse> getAnimeList(String anime) {
-        return RetrofitInstance.getInstance().getAnime(anime);
+    public Call<AnimeSearchResponse> getAnimeList(String animeTitle) {
+        return RetrofitInstance.getInstance().getAnimeList(animeTitle);
     }
 
     public static AnimeRepository getInstance() {
