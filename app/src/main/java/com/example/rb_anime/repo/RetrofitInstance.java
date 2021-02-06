@@ -1,6 +1,4 @@
-package com.example.rb_anime.repo.remote;
-
-import com.example.rb_anime.repo.Service;
+package com.example.rb_anime.repo;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -10,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 public class RetrofitInstance {
 
     //Base url
-    private static final String BASE_URL = "https://api.jikan.moe/v3";
+    private static final String BASE_URL = "https://api.jikan.moe/v3/";
 
     // Declare Instance
     private static Service INSTANCE = null;

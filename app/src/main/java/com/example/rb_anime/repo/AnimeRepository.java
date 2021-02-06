@@ -1,6 +1,6 @@
 package com.example.rb_anime.repo;
 
-import com.example.rb_anime.repo.remote.RetrofitInstance;
+import com.example.rb_anime.model.AnimeResponse;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class AnimeRepository {
 
     }
 
-    public Call<List<String>> getAnimeList(String anime) {
+    public Call<AnimeResponse> getAnimeList(String anime) {
         return RetrofitInstance.getInstance().getAnime(anime);
     }
 

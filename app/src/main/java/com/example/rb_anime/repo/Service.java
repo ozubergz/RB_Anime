@@ -1,4 +1,6 @@
-package com.example.rb_anime.repo.remote;
+package com.example.rb_anime.repo;
+
+import com.example.rb_anime.model.AnimeResponse;
 
 import java.util.List;
 
@@ -10,6 +12,6 @@ public interface Service {
 
     // https://api.jikan.moe/v3/search/anime?q=cowboybebop
 
-    @GET("/search/anime")
-    Call<List<String>> getAnime(@Query("q") String anime);
+    @GET("search/anime")
+    Call<AnimeResponse> getAnime(@Query("q") String anime);
 }
