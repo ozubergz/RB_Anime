@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.AnimeListActivity" />
-        <activity android:name=".view.AnimeSingle" />
+        <activity android:name=".view.AnimeDetail" />
 
     </application>
 

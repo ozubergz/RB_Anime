@@ -2,8 +2,6 @@ package com.example.rb_anime.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,10 +62,8 @@ public class AnimeListActivity extends AppCompatActivity implements AnimeClickLi
     public void itemClick(int position) {
         AnimeModel animeModel = animeModels.get(position);
 
-        Intent intent = new Intent(this, AnimeSingle.class);
+        Intent intent = new Intent(this, AnimeDetail.class);
         intent.putExtra(Constants.ANIME_SINGLE_PARAM_MODEL, animeModel);
         startActivity(intent);
-
-//        Toast.makeText(this, "" + animeModel.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }
