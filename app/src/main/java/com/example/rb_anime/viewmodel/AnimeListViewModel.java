@@ -15,6 +15,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AnimeListViewModel extends ViewModel {
+    private final MutableLiveData<List<AnimeModel>> _animeModels = new MutableLiveData<>();
+
+    public LiveData<List<AnimeModel>> getAnimeModels() {
+        return _animeModels;
+    }
 
     private final AnimeRepository animeRepo = AnimeRepository.getInstance();
 
@@ -24,8 +29,7 @@ public class AnimeListViewModel extends ViewModel {
             public void onResponse(Call<AnimeSearchResponse> call, Response<AnimeSearchResponse> response) {
                 AnimeSearchResponse JSONResponse = response.body();
                 List<AnimeModel> animeModels = JSONResponse.getAnimeModels();
-
-                // System.out.println(animeModels.get(0).getImageUrl());
+                _animeModels.setValue(animeModels);
             }
 
             @Override
