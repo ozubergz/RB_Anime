@@ -1,6 +1,8 @@
 package com.example.rb_anime.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,6 +24,7 @@ public class AnimeListActivity extends AppCompatActivity implements AnimeClickLi
 
     private ActivityAnimeListBinding binding;
     private AnimeListViewModel viewModel;
+    private List<AnimeModel> animeModels;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +51,9 @@ public class AnimeListActivity extends AppCompatActivity implements AnimeClickLi
         viewModel.getAnimeModels().observe(this, new Observer<List<AnimeModel>>() {
             @Override
             public void onChanged(List<AnimeModel> animeModels) {
+
+                AnimeListActivity.this.animeModels = animeModels;
+
                 AnimeAdapter adapter = new AnimeAdapter(animeModels, AnimeListActivity.this);
                 binding.rvAnimeList.setAdapter(adapter);
             }
@@ -56,6 +62,12 @@ public class AnimeListActivity extends AppCompatActivity implements AnimeClickLi
 
     @Override
     public void itemClick(int position) {
-        Toast.makeText(this, "" + position, Toast.LENGTH_SHORT).show();
+        AnimeModel animeModel = animeModels.get(position);
+
+        Intent intent = new Intent(this, AnimeSingle.class);
+        intent.putExtra(Constants.ANIME_SINGLE_PARAM_MODEL, animeModel);
+        startActivity(intent);
+
+//        Toast.makeText(this, "" + animeModel.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -2,7 +2,9 @@ package com.example.rb_anime.model;
 
 import com.squareup.moshi.Json;
 
-public class AnimeModel {
+import java.io.Serializable;
+
+public class AnimeModel implements Serializable {
 
     @Json(name = "mal_id")
      private int malId;
