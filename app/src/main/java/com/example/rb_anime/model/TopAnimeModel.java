@@ -4,40 +4,36 @@ import com.squareup.moshi.Json;
 
 import java.io.Serializable;
 
-public class AnimeModel implements Serializable {
+public class TopAnimeModel implements Serializable {
 
     @Json(name = "mal_id")
     private int malId;
+    private int rank;
+    private String title;
     private String url;
     @Json(name = "image_url")
     private String imageUrl;
-    private String title;
-    private boolean airing;
-    private String synopsis;
     private String type;
     private Integer episodes;
-    private double score;
     @Json(name = "start_date")
     private String startDate;
     @Json(name = "end_date")
     private String endDate;
     private int members;
-    private String rated;
+    private double score;
 
-    public AnimeModel(int malId, String url, String imageUrl, String title, boolean airing, String synopsis, String type, int episodes, double score, String startDate, String endDate, int members, String rated) {
+    public TopAnimeModel(int malId, int rank, String title, String url, String imageUrl, String type, Integer episodes, String startDate, String endDate, int members, double score) {
         this.malId = malId;
+        this.rank = rank;
+        this.title = title;
         this.url = url;
         this.imageUrl = imageUrl;
-        this.title = title;
-        this.airing = airing;
-        this.synopsis = synopsis;
         this.type = type;
         this.episodes = episodes;
-        this.score = score;
         this.startDate = startDate;
         this.endDate = endDate;
         this.members = members;
-        this.rated = rated;
+        this.score = score;
     }
 
     public int getMalId() {
@@ -46,6 +42,22 @@ public class AnimeModel implements Serializable {
 
     public void setMalId(int malId) {
         this.malId = malId;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getUrl() {
@@ -64,30 +76,6 @@ public class AnimeModel implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public boolean isAiring() {
-        return airing;
-    }
-
-    public void setAiring(boolean airing) {
-        this.airing = airing;
-    }
-
-    public String getSynopsis() {
-        return synopsis;
-    }
-
-    public void setSynopsis(String synopsis) {
-        this.synopsis = synopsis;
-    }
-
     public String getType() {
         return type;
     }
@@ -96,20 +84,12 @@ public class AnimeModel implements Serializable {
         this.type = type;
     }
 
-    public int getEpisodes() {
+    public Integer getEpisodes() {
         return episodes;
     }
 
-    public void setEpisodes(int episodes) {
+    public void setEpisodes(Integer episodes) {
         this.episodes = episodes;
-    }
-
-    public double getScore() {
-        return score;
-    }
-
-    public void setScore(double score) {
-        this.score = score;
     }
 
     public String getStartDate() {
@@ -136,11 +116,11 @@ public class AnimeModel implements Serializable {
         this.members = members;
     }
 
-    public String getRated() {
-        return rated;
+    public double getScore() {
+        return score;
     }
 
-    public void setRated(String rated) {
-        this.rated = rated;
+    public void setScore(double score) {
+        this.score = score;
     }
 }

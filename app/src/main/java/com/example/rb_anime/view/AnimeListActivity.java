@@ -37,7 +37,7 @@ public class AnimeListActivity extends AppCompatActivity implements AnimeClickLi
 
         String animeTitle = getIntent().getStringExtra(Constants.ANIME_LIST_ACTIVITY_PARAM_STRING);
 
-        viewModel.fetchAnimeList(animeTitle);
+        viewModel.fetchAnimeSearchList(animeTitle);
     }
 
     private void initView() {

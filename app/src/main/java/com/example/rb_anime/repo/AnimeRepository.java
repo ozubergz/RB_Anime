@@ -12,8 +12,12 @@ public class AnimeRepository {
 
     }
 
-    public Call<AnimeSearchResponse> getAnimeList(String animeTitle) {
-        return RetrofitInstance.getInstance().getAnimeList(animeTitle);
+    public Call<AnimeSearchResponse> getAnimeSearchList(String animeTitle) {
+        return RetrofitInstance.getInstance().getAnimeSearchList(animeTitle);
+    }
+
+    public Call<AnimeSearchResponse> getTopAnimeList(String type, int page, String subtype) {
+        return RetrofitInstance.getInstance().getTopAnimeList(type, page, subtype);
     }
 
     public static AnimeRepository getInstance() {
