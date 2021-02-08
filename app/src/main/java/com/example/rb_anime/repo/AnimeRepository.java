@@ -1,6 +1,6 @@
 package com.example.rb_anime.repo;
 
-import com.example.rb_anime.model.AnimeModel;
+import com.example.rb_anime.model.AnimeDetailModel;
 import com.example.rb_anime.model.AnimeSearchResponse;
 
 import retrofit2.Call;
@@ -21,7 +21,7 @@ public class AnimeRepository {
         return RetrofitInstance.getInstance().getTopAnimeList(type, page, subtype);
     }
 
-    public Call<AnimeModel> getAnimeDetail(int id) {
+    public Call<AnimeDetailModel> getAnimeDetail(int id) {
         return RetrofitInstance.getInstance().getAnimeDetail(id);
     }
 

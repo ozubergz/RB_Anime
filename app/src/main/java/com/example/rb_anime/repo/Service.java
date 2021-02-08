@@ -1,6 +1,6 @@
 package com.example.rb_anime.repo;
 
-import com.example.rb_anime.model.AnimeModel;
+import com.example.rb_anime.model.AnimeDetailModel;
 import com.example.rb_anime.model.AnimeSearchResponse;
 
 import retrofit2.Call;
@@ -20,5 +20,5 @@ public interface Service {
             @Path(value = "type", encoded = true) String type, @Path(value = "page", encoded = true) int page, @Path(value = "subtype", encoded = true) String subtype);
 
     @GET("anime/{id}")
-    Call<AnimeModel>  getAnimeDetail(@Path(value = "id", encoded = true) int id);
+    Call<AnimeDetailModel> getAnimeDetail(@Path(value = "id", encoded = true) int id);
 }

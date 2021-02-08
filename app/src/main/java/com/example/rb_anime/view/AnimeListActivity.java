@@ -50,7 +50,6 @@ public class AnimeListActivity extends AppCompatActivity implements AnimeClickLi
 //    private void initGridView(){
 //        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
 //        binding.rvAnimeGridList.setLayoutManager(gridLayoutManager);
-//
 //    }
 
     private void initObservers() {
@@ -65,6 +64,7 @@ public class AnimeListActivity extends AppCompatActivity implements AnimeClickLi
 //                binding.rvAnimeGridList.setAdapter(adapter);
             }
         });
+
     }
 
     @Override

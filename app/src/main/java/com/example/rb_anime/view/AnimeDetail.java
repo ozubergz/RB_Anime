@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.rb_anime.databinding.ActivityAnimeDetailBinding;
-import com.example.rb_anime.model.AnimeModel;
-import com.example.rb_anime.model.TopAnimeModel;
+
+import com.example.rb_anime.model.AnimeDetailModel;
 import com.example.rb_anime.util.Constants;
 import com.example.rb_anime.viewmodel.AnimeListViewModel;
 
@@ -50,10 +50,9 @@ public class AnimeDetail extends AppCompatActivity {
     }
 
     private void initObservers() {
-        viewModel.getAnime().observe(this, new Observer<AnimeModel>() {
-            @SuppressLint("SetTextI18n")
+        viewModel.getAnime().observe(this, new Observer<AnimeDetailModel>() {
             @Override
-            public void onChanged(AnimeModel animeModel) {
+            public void onChanged(AnimeDetailModel animeModel) {
                 Glide.with(getApplicationContext()).load(animeModel.getImageUrl()).into(binding.ivAnimeDetailImg);
                 binding.tvAnimeDetailTitle.setText(animeModel.getTitle());
                 binding.tvAnimeDetailSynopsis.setText(animeModel.getSynopsis());

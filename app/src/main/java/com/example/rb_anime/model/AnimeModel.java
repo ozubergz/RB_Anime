@@ -4,7 +4,7 @@ import com.squareup.moshi.Json;
 
 import java.io.Serializable;
 
-public class AnimeModel implements Serializable {
+public class AnimeModel {
 
     @Json(name = "mal_id")
     private int malId;

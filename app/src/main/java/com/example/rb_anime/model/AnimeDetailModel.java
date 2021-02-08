@@ -4,36 +4,43 @@ import com.squareup.moshi.Json;
 
 import java.io.Serializable;
 
-public class TopAnimeModel {
+public class AnimeDetailModel implements Serializable {
 
     @Json(name = "mal_id")
     private int malId;
-    private int rank;
-    private String title;
     private String url;
     @Json(name = "image_url")
     private String imageUrl;
+    private String title;
+    @Json(name = "title_japanese")
+    private String titleJapanese;
+    private boolean airing;
+    private String synopsis;
     private String type;
     private Integer episodes;
+    private Double score;
     @Json(name = "start_date")
     private String startDate;
     @Json(name = "end_date")
     private String endDate;
     private int members;
-    private double score;
+    private String rated;
 
-    public TopAnimeModel(int malId, int rank, String title, String url, String imageUrl, String type, Integer episodes, String startDate, String endDate, int members, double score) {
+    public AnimeDetailModel(int malId, String url, String imageUrl, String title, String titleJapanese, boolean airing, String synopsis, String type, Integer episodes, Double score, String startDate, String endDate, int members, String rated) {
         this.malId = malId;
-        this.rank = rank;
-        this.title = title;
         this.url = url;
         this.imageUrl = imageUrl;
+        this.title = title;
+        this.titleJapanese = titleJapanese;
+        this.airing = airing;
+        this.synopsis = synopsis;
         this.type = type;
         this.episodes = episodes;
+        this.score = score;
         this.startDate = startDate;
         this.endDate = endDate;
         this.members = members;
-        this.score = score;
+        this.rated = rated;
     }
 
     public int getMalId() {
@@ -42,22 +49,6 @@ public class TopAnimeModel {
 
     public void setMalId(int malId) {
         this.malId = malId;
-    }
-
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getUrl() {
@@ -76,6 +67,38 @@ public class TopAnimeModel {
         this.imageUrl = imageUrl;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitleJapanese() {
+        return titleJapanese;
+    }
+
+    public void setTitleJapanese(String titleJapanese) {
+        this.titleJapanese = titleJapanese;
+    }
+
+    public boolean isAiring() {
+        return airing;
+    }
+
+    public void setAiring(boolean airing) {
+        this.airing = airing;
+    }
+
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
+
     public String getType() {
         return type;
     }
@@ -90,6 +113,14 @@ public class TopAnimeModel {
 
     public void setEpisodes(Integer episodes) {
         this.episodes = episodes;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
     }
 
     public String getStartDate() {
@@ -116,11 +147,11 @@ public class TopAnimeModel {
         this.members = members;
     }
 
-    public double getScore() {
-        return score;
+    public String getRated() {
+        return rated;
     }
 
-    public void setScore(double score) {
-        this.score = score;
+    public void setRated(String rated) {
+        this.rated = rated;
     }
 }

@@ -11,11 +11,11 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/anime_item_layout" />
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rv_anime_grid_list"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        tools:listitem="@layout/anime_item_grid" />-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_anime_grid_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/anime_item_grid" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
