@@ -18,11 +18,15 @@ import retrofit2.Response;
 public class AnimeListViewModel extends ViewModel {
     private final MutableLiveData<List<AnimeModel>> _animeModels = new MutableLiveData<>();
     private final MutableLiveData<List<TopAnimeModel>> _topAnimes = new MutableLiveData<>();
+    private final MutableLiveData<TopAnimeModel> _firstTopAnimes = new MutableLiveData<>();
+    public final MutableLiveData<AnimeModel> _anime = new MutableLiveData<>();
 
     public LiveData<List<AnimeModel>> getAnimeModels() {
         return _animeModels;
     }
     public LiveData<List<TopAnimeModel>> getTopAnimes() { return  _topAnimes; }
+    public LiveData<TopAnimeModel> getFirstTopAnime() { return _firstTopAnimes; }
+    public LiveData<AnimeModel> getAnime() { return _anime; }
 
     private final AnimeRepository animeRepo = AnimeRepository.getInstance();
 
@@ -48,6 +52,8 @@ public class AnimeListViewModel extends ViewModel {
             public void onResponse(Call<AnimeSearchResponse> call, Response<AnimeSearchResponse> response) {
                 AnimeSearchResponse JSONResponse = response.body();
                 List<TopAnimeModel> topAnimes = JSONResponse.getTop();
+                TopAnimeModel firstTopAnime = topAnimes.get(0);
+                _firstTopAnimes.setValue(firstTopAnime);
                 _topAnimes.setValue(topAnimes);
             }
 
@@ -57,4 +63,20 @@ public class AnimeListViewModel extends ViewModel {
             }
         });
     }
+
+    public void fetchAnimeDetail(int id) {
+        animeRepo.getAnimeDetail(id).enqueue(new Callback<AnimeModel>() {
+            @Override
+            public void onResponse(Call<AnimeModel> call, Response<AnimeModel> response) {
+                AnimeModel anime = response.body();
+                _anime.setValue(anime);
+            }
+
+            @Override
+            public void onFailure(Call<AnimeModel> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+
 }

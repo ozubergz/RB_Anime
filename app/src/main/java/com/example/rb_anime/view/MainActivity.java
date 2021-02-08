@@ -9,14 +9,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.example.rb_anime.adapter.AnimeAdapter;
 import com.example.rb_anime.adapter.AnimeClickListener;
 import com.example.rb_anime.databinding.ActivityMainBinding;
-import com.example.rb_anime.model.AnimeModel;
 import com.example.rb_anime.model.TopAnimeModel;
 import com.example.rb_anime.util.Constants;
 import com.example.rb_anime.viewmodel.AnimeListViewModel;
-import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 
@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements AnimeClickListene
     private ActivityMainBinding binding;
     private AnimeListViewModel viewModel;
     private List<TopAnimeModel> animeModels;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +48,9 @@ public class MainActivity extends AppCompatActivity implements AnimeClickListene
             }
         });
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         binding.rvAnimeList.setLayoutManager(linearLayoutManager);
+
     }
 
     private void initObservers() {
@@ -61,6 +61,14 @@ public class MainActivity extends AppCompatActivity implements AnimeClickListene
 
                 AnimeAdapter adapter = new AnimeAdapter(animeModels, MainActivity.this);
                 binding.rvAnimeList.setAdapter(adapter);
+            }
+        });
+
+        viewModel.getFirstTopAnime().observe(this, new Observer<TopAnimeModel>() {
+            @Override
+            public void onChanged(TopAnimeModel topAnimeModel) {
+                Glide.with(getApplicationContext()).load(topAnimeModel.getImageUrl()).into(binding.ivMainImg);
+                binding.tvMainTitle.setText(topAnimeModel.getTitle());
             }
         });
     }
@@ -80,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements AnimeClickListene
         TopAnimeModel animeModel = animeModels.get(position);
 
         Intent intent = new Intent(this, AnimeDetail.class);
-        intent.putExtra(Constants.ANIME_SINGLE_PARAM_MODEL, animeModel);
+        intent.putExtra(Constants.ANIME_SINGLE_ID, animeModel.getMalId());
         startActivity(intent);
     }
 

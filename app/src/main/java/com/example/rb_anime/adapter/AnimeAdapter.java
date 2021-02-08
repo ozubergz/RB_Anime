@@ -82,7 +82,8 @@ public class AnimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         public void setAnime(AnimeModel animeModel) {
             binding.tvAnimeTitle.setText(animeModel.getTitle());
-            Glide.with(this.itemView).load(animeModel.getImageUrl()).into(binding.ivAnimeUrl);
+            binding.tvAnimeSynopsis.setText(animeModel.getSynopsis());
+            Glide.with(this.itemView).load(animeModel.getImageUrl()).into(binding.ivAnimeImg);
 
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -105,8 +106,9 @@ public class AnimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         public void setAnime(TopAnimeModel animeModel) {
+
             binding.tvTopAnimeTitle.setText(animeModel.getTitle());
-//            Glide.with(this.itemView).load(animeModel.getImageUrl()).into(binding.ivAnimeUrl);
+            Glide.with(this.itemView).load(animeModel.getImageUrl()).into(binding.ivTopAnimeUrl);
 
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override

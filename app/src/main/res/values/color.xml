@@ -62,4 +62,7 @@
     <!--color on surface (light)-->
     <color name="black_900">#000000</color>
 
+    <color name="gray">#5b5b5b</color>
+    <color name="dark_navy" >#222831</color>
+
 </resources>

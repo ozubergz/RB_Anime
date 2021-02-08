@@ -12,11 +12,13 @@ public class AnimeModel implements Serializable {
     @Json(name = "image_url")
     private String imageUrl;
     private String title;
+    @Json(name = "title_japanese")
+    private String titleJapanese;
     private boolean airing;
     private String synopsis;
     private String type;
     private Integer episodes;
-    private double score;
+    private Double score;
     @Json(name = "start_date")
     private String startDate;
     @Json(name = "end_date")
@@ -24,11 +26,12 @@ public class AnimeModel implements Serializable {
     private int members;
     private String rated;
 
-    public AnimeModel(int malId, String url, String imageUrl, String title, boolean airing, String synopsis, String type, int episodes, double score, String startDate, String endDate, int members, String rated) {
+    public AnimeModel(int malId, String url, String imageUrl, String title, String titleJapanese, boolean airing, String synopsis, String type, int episodes, double score, String startDate, String endDate, int members, String rated) {
         this.malId = malId;
         this.url = url;
         this.imageUrl = imageUrl;
         this.title = title;
+        this.titleJapanese = titleJapanese;
         this.airing = airing;
         this.synopsis = synopsis;
         this.type = type;
@@ -142,5 +145,21 @@ public class AnimeModel implements Serializable {
 
     public void setRated(String rated) {
         this.rated = rated;
+    }
+
+    public String getTitleJapanese() {
+        return titleJapanese;
+    }
+
+    public void setTitleJapanese(String titleJapanese) {
+        this.titleJapanese = titleJapanese;
+    }
+
+    public void setEpisodes(Integer episodes) {
+        this.episodes = episodes;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
     }
 }

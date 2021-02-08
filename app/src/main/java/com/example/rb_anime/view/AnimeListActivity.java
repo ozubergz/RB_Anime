@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.rb_anime.adapter.AnimeAdapter;
@@ -32,7 +33,8 @@ public class AnimeListActivity extends AppCompatActivity implements AnimeClickLi
 
         viewModel = new ViewModelProvider(this).get(AnimeListViewModel.class);
 
-        initView();
+        initLinearView();
+//        initGridView();
         initObservers();
 
         String animeTitle = getIntent().getStringExtra(Constants.ANIME_LIST_ACTIVITY_PARAM_STRING);
@@ -40,10 +42,16 @@ public class AnimeListActivity extends AppCompatActivity implements AnimeClickLi
         viewModel.fetchAnimeSearchList(animeTitle);
     }
 
-    private void initView() {
+    private void initLinearView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        binding.rvAnimeList.setLayoutManager(linearLayoutManager);
+        binding.rvAnimeLinearList.setLayoutManager(linearLayoutManager);
     }
+
+//    private void initGridView(){
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+//        binding.rvAnimeGridList.setLayoutManager(gridLayoutManager);
+//
+//    }
 
     private void initObservers() {
         viewModel.getAnimeModels().observe(this, new Observer<List<AnimeModel>>() {
@@ -53,7 +61,8 @@ public class AnimeListActivity extends AppCompatActivity implements AnimeClickLi
                 AnimeListActivity.this.animeModels = animeModels;
 
                 AnimeAdapter adapter = new AnimeAdapter(animeModels, AnimeListActivity.this);
-                binding.rvAnimeList.setAdapter(adapter);
+                binding.rvAnimeLinearList.setAdapter(adapter);
+//                binding.rvAnimeGridList.setAdapter(adapter);
             }
         });
     }
@@ -63,7 +72,7 @@ public class AnimeListActivity extends AppCompatActivity implements AnimeClickLi
         AnimeModel animeModel = animeModels.get(position);
 
         Intent intent = new Intent(this, AnimeDetail.class);
-        intent.putExtra(Constants.ANIME_SINGLE_PARAM_MODEL, animeModel);
+        intent.putExtra(Constants.ANIME_SINGLE_ID, animeModel.getMalId());
         startActivity(intent);
     }
 }
