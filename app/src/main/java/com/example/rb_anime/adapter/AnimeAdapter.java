@@ -23,7 +23,8 @@ public class AnimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private static int TYPE_ANIME_SEARCH_LAYOUT = 1;
     private static int TYPE_ANIME_TOP_LAYOUT = 2;
-    private static int TYPE_ANIME_GRID_LAYOUT = 3;
+    private static int TYPE_ANIME_GRID_LAYOUT = 0;
+    private int VIEW_TYPE = 0;
 
     public AnimeAdapter(List<?> animeModels, AnimeClickListener listener) {
         this.animeModels = animeModels;
@@ -33,19 +34,25 @@ public class AnimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public int getItemViewType(int position) {
         int type = 0;
-        if(animeModels.get(position) instanceof AnimeModel) {
+        if(animeModels.get(position) instanceof AnimeModel && VIEW_TYPE == TYPE_ANIME_SEARCH_LAYOUT) {
             type = TYPE_ANIME_SEARCH_LAYOUT;
         } else if(animeModels.get(position) instanceof TopAnimeModel) {
             type = TYPE_ANIME_TOP_LAYOUT;
-        } else if(animeModels.get(position) instanceof AnimeDetailModel) {
+        } else if(VIEW_TYPE == TYPE_ANIME_GRID_LAYOUT) {
             type = TYPE_ANIME_GRID_LAYOUT;
         }
         return type;
     }
 
+    public void setViewType(int viewType) {
+        VIEW_TYPE = viewType;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         if (viewType == TYPE_ANIME_SEARCH_LAYOUT) {
             AnimeItemLayoutBinding binding = AnimeItemLayoutBinding.inflate(
                     LayoutInflater.from(parent.getContext()), parent, false);
@@ -64,14 +71,14 @@ public class AnimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(getItemViewType(position) == TYPE_ANIME_SEARCH_LAYOUT) {
+        if(getItemViewType(position) == TYPE_ANIME_SEARCH_LAYOUT && holder instanceof AnimeItemLayoutViewHolder) {
             AnimeModel animeModel = (AnimeModel) animeModels.get(position);
             ((AnimeItemLayoutViewHolder) holder).setAnime(animeModel);
         } else if(getItemViewType(position) == TYPE_ANIME_TOP_LAYOUT) {
             TopAnimeModel topAnimeModel = (TopAnimeModel) animeModels.get(position);
             ((TopAnimeLayoutViewHolder) holder).setAnime(topAnimeModel);
-        } else if(getItemViewType(position) == TYPE_ANIME_GRID_LAYOUT) {
-            AnimeDetailModel animeDetailModel = (AnimeDetailModel) animeModels.get(position);
+        } else if(getItemViewType(position) == TYPE_ANIME_GRID_LAYOUT && holder instanceof AnimeItemGridBindViewHolder) {
+            AnimeModel animeDetailModel = (AnimeModel) animeModels.get(position);
             ((AnimeItemGridBindViewHolder) holder).setAnime(animeDetailModel);
         }
     }
@@ -142,7 +149,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             this.listener = listener;
         }
 
-        public void setAnime(AnimeDetailModel animeModel) {
+        public void setAnime(AnimeModel animeModel) {
 
             binding.tvAnimeTitle.setText(animeModel.getTitle());
             Glide.with(this.itemView).load(animeModel.getImageUrl()).into(binding.ivAnimeImg);

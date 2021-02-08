@@ -9,15 +9,21 @@ import com.example.rb_anime.model.AnimeModel;
 import com.example.rb_anime.model.AnimeSearchResponse;
 import com.example.rb_anime.model.TopAnimeModel;
 import com.example.rb_anime.repo.AnimeRepository;
+import com.example.rb_anime.repo.RetrofitInstance;
+import com.example.rb_anime.repo.Service;
 import com.example.rb_anime.view.AnimeDetail;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AnimeListViewModel extends ViewModel {
+
     private final MutableLiveData<List<AnimeModel>> _animeModels = new MutableLiveData<>();
     private final MutableLiveData<List<TopAnimeModel>> _topAnimes = new MutableLiveData<>();
     private final MutableLiveData<TopAnimeModel> _firstTopAnimes = new MutableLiveData<>();
@@ -33,19 +39,32 @@ public class AnimeListViewModel extends ViewModel {
     private final AnimeRepository animeRepo = AnimeRepository.getInstance();
 
     public void fetchAnimeSearchList(String animeTitle) {
-        animeRepo.getAnimeSearchList(animeTitle).enqueue(new Callback<AnimeSearchResponse>() {
-            @Override
-            public void onResponse(Call<AnimeSearchResponse> call, Response<AnimeSearchResponse> response) {
-                AnimeSearchResponse JSONResponse = response.body();
-                List<AnimeModel> animeModels = JSONResponse.getAnimeModels();
-                _animeModels.setValue(animeModels);
-            }
 
-            @Override
-            public void onFailure(Call<AnimeSearchResponse> call, Throwable t) {
-                System.out.println(t.getMessage());
-            }
-        });
+//        animeRepo.getAnimeSearchList(animeTitle).enqueue(new Callback<AnimeSearchResponse>() {
+//            @Override
+//            public void onResponse(Call<AnimeSearchResponse> call, Response<AnimeSearchResponse> response) {
+//                AnimeSearchResponse JSONResponse = response.body();
+//                List<AnimeModel> animeModels = JSONResponse.getAnimeModels();
+//                _animeModels.setValue(animeModels);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<AnimeSearchResponse> call, Throwable t) {
+//                System.out.println(t.getMessage());
+//            }
+//        });
+
+        animeRepo.getAnimeSearchList(animeTitle)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResults, this::handleError);
+    }
+
+    private void handleError(Throwable throwable) {
+    }
+
+    private void handleResults(AnimeSearchResponse response) {
+        _animeModels.setValue(response.getAnimeModels());
     }
 
     public void fetchTopAnimeList(String type, int page, String subtype) {

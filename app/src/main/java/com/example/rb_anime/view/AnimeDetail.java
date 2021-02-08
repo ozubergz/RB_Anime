@@ -1,7 +1,5 @@
 package com.example.rb_anime.view;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.rb_anime.databinding.ActivityAnimeDetailBinding;
-
 import com.example.rb_anime.model.AnimeDetailModel;
 import com.example.rb_anime.util.Constants;
 import com.example.rb_anime.viewmodel.AnimeListViewModel;

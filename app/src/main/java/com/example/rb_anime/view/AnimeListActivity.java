@@ -2,6 +2,7 @@ package com.example.rb_anime.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,38 +34,63 @@ public class AnimeListActivity extends AppCompatActivity implements AnimeClickLi
 
         viewModel = new ViewModelProvider(this).get(AnimeListViewModel.class);
 
+        toggleViews();
         initLinearView();
-//        initGridView();
-        initObservers();
 
         String animeTitle = getIntent().getStringExtra(Constants.ANIME_LIST_ACTIVITY_PARAM_STRING);
-
         viewModel.fetchAnimeSearchList(animeTitle);
     }
 
+    private void toggleViews() {
+        binding.btnGrid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initGridView();
+            }
+        });
+
+        binding.btnLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initLinearView();
+            }
+        });
+    }
+
     private void initLinearView() {
+        viewModel.getAnimeModels().observe(this, new Observer<List<AnimeModel>>() {
+            @Override
+            public void onChanged(List<AnimeModel> animeModels) {
+                AnimeListActivity.this.animeModels = animeModels;
+                AnimeAdapter adapter = new AnimeAdapter(animeModels, AnimeListActivity.this);
+
+                binding.rvAnimeGridList.setVisibility(View.INVISIBLE);
+                binding.rvAnimeLinearList.setVisibility(View.VISIBLE);
+
+                adapter.setViewType(1);
+                binding.rvAnimeLinearList.setAdapter(adapter);
+            }
+        });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         binding.rvAnimeLinearList.setLayoutManager(linearLayoutManager);
     }
 
-//    private void initGridView(){
-//        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
-//        binding.rvAnimeGridList.setLayoutManager(gridLayoutManager);
-//    }
-
-    private void initObservers() {
+    private void initGridView() {
         viewModel.getAnimeModels().observe(this, new Observer<List<AnimeModel>>() {
             @Override
             public void onChanged(List<AnimeModel> animeModels) {
-
                 AnimeListActivity.this.animeModels = animeModels;
-
                 AnimeAdapter adapter = new AnimeAdapter(animeModels, AnimeListActivity.this);
-                binding.rvAnimeLinearList.setAdapter(adapter);
-//                binding.rvAnimeGridList.setAdapter(adapter);
+
+                binding.rvAnimeGridList.setVisibility(View.VISIBLE);
+                binding.rvAnimeLinearList.setVisibility(View.INVISIBLE);
+
+                adapter.setViewType(0);
+                binding.rvAnimeGridList.setAdapter(adapter);
             }
         });
-
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+        binding.rvAnimeGridList.setLayoutManager(gridLayoutManager);
     }
 
     @Override
